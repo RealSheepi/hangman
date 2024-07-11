@@ -1,8 +1,15 @@
+import requests
 import random
+import string
 
-def choose_word():
-    words = ["apple", "blimp", "brown", "grain", "mimic", "strawberry", "peach", "pineapple", "strange"]
-    return random.choice(words)
+def get_random_word():
+  url = 'https://random-word-api.herokuapp.com/word'
+  params = {
+      'number': 1
+  }
+  response = requests.get(url, params=params)
+  data = response.json()
+  return data[0].lower()
 
 def display_word(word, guessed_letters):
     display = ""
@@ -16,7 +23,7 @@ def display_word(word, guessed_letters):
 def hangman():
     print("Welcome to Hangman!")
 
-    word = choose_word()
+    word = get_random_word()
     guessed_letters = []
     attempts_left = 6
 
